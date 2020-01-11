@@ -1,0 +1,80 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Phone Book App</title>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../scripts/ajaxCalls.js"></script>
+    <style type="text/css">
+        td {
+            width: 200px;
+        }
+
+        img {
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script>
+         var userCountry;
+
+        function checkCountry() {
+            ajaxCall("GET", "../api/Country", "", countrySuccess, countryerror);
+         }
+
+        function countrySuccess(data) {
+            userCountry = document.getElementById("countryTB").value;
+
+            console.log(data);
+            console.log(userCountry);
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].name == userCountry) {
+                    window.localStorage.setItem('user', JSON.stringify(userCountry));
+                    location.href = "countries.html";
+                     return alert("Exists");
+                    }
+                }
+            return alert("Not Exists");
+        }
+
+        function countryerror(err) {
+            alert(err);
+        }
+
+    </script>
+
+    <img src="images/world.jpg" />
+
+    <form id="productForm">
+
+        <h2>Welcome to the World</h2>
+
+        <table>
+
+            <tr>
+                <td>Name of the country</td>
+                <td>
+                    <input type="text" id="countryTB" />
+
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <input type="button" value="Enter" onclick="checkCountry()" />
+                </td>
+            </tr>
+        </table>
+
+    </form>
+</body>
+</html>
+

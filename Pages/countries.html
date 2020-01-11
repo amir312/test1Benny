@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Phone Book App</title>
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+    <script src="../scripts/ajaxCalls.js"></script>
+    <style type="text/css">
+        td {
+            width: 200px;
+        }
+
+        img {
+            height: 150px;
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var title = "";
+        $(document).ready(function () {
+            title =JSON.parse(window.localStorage.getItem('user'));
+
+            document.getElementById('h2Title').innerHTML = title;
+ 
+         });
+
+      
+
+       function updateData() {
+           var countryToSave = {
+                Id: "",
+                Name: title,
+                Lang: $("#langTB").val(),
+               Continent: $('#selectC :selected').val(),                              
+             }
+            
+                ajaxCall("PUT", "../api/Country", JSON.stringify(countryToSave), updateSuccess, error);
+
+        }
+
+
+        function updateSuccess(data) {
+
+        }
+
+        function error(err) {
+
+        }
+
+    </script>
+
+
+    <form id="countryForm">
+    <div>
+    
+        <h2 id="h2Title"></h2>
+
+        <table>
+            <tr>
+                <td>langauge</td>
+                <td>
+                    <input type="text" id="langTB" />
+                </td>
+            </tr>
+            <tr>
+                <td>continent</td>
+                <td>
+                    <select id="selectC">
+                        <option value="aa">asia</option>
+                        <option value="bb">america</option>
+                        <option value="cc">europe</option>
+                        <option value="dd">africe</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+               
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="Update" onclick="updateData()" />
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <input type="button" value="get by continent" />
+                </td>
+            </tr>
+        </table>
+
+
+    </div>
+
+    <div id="show">
+
+        <h1>The DataTable Goes Here</h1>
+        
+    </div>
+
+        
+</form>
+</body>
+</html>
+
